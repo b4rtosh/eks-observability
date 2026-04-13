@@ -10,7 +10,7 @@ This repository is a maintained fork of the original demo project:
 This fork preserves upstream attribution and establishes a new delivery baseline.
 
 - Baseline origin: application foundation from `blueswen/fastapi-observability`
-- Baseline commit in this fork: `TO_BE_FILLED_AFTER_FIRST_FORK_COMMIT`
+- Baseline commit in this fork: `4f3f08423af844a657b76eb8589e5e2cb4ab8059`
 - Ownership statement: all commits after the baseline commit are implementation work in this fork
 
 ## Project Intent
