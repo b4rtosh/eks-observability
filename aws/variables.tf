@@ -26,3 +26,25 @@ variable "nodegroup_ssh_key_name" {
   default = null
 }
 
+variable "observability_allowed_cidrs" {
+  description = "Public CIDRs allowed to access Grafana/Prometheus"
+  type        = list(string)
+  default     = ["203.0.113.10/32"] # replace with your real IP(s)
+}
+
+variable "grafana_port" {
+  type    = number
+  default = 3000
+}
+
+variable "prometheus_port" {
+  type    = number
+  default = 9090
+}
+
+variable "enable_public_node_access" {
+  description = "Enable direct internet ingress to worker nodes for allowlisted CIDRs"
+  type        = bool
+  default     = true
+}
+

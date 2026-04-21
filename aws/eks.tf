@@ -24,8 +24,8 @@ module "eks" {
   enable_cluster_creator_admin_permissions = true
 
   vpc_id = module.vpc.vpc_id
-  # First two private subnets for node/data-plane resources
-  subnet_ids = slice(module.vpc.private_subnets, 0, 2)
+  # Place worker nodes in public subnets for direct internet reachability.
+  subnet_ids = module.vpc.public_subnets
   # Last two private subnets for control plane ENIs
   control_plane_subnet_ids = slice(module.vpc.private_subnets, 2, 4)
 
@@ -33,16 +33,36 @@ module "eks" {
   endpoint_private_access = true
   endpoint_public_access  = false
 
-  node_security_group_additional_rules = var.enable_nodegroup_ssh_from_bastion && var.nodegroup_ssh_key_name != null ? {
-    bastion_to_nodes_ssh = {
-      description              = "Allow SSH from bastion to worker nodes"
-      protocol                 = "tcp"
-      from_port                = 22
-      to_port                  = 22
-      type                     = "ingress"
-      source_security_group_id = aws_security_group.bastion.id
-    }
-  } : {}
+  node_security_group_additional_rules = merge(
+    var.enable_public_node_access ? {
+      public_grafana = {
+        description = "Allow Grafana from allowlisted public CIDRs"
+        protocol    = "tcp"
+        from_port   = var.grafana_port
+        to_port     = var.grafana_port
+        type        = "ingress"
+        cidr_blocks = var.observability_allowed_cidrs
+      }
+      public_prometheus = {
+        description = "Allow Prometheus from allowlisted public CIDRs"
+        protocol    = "tcp"
+        from_port   = var.prometheus_port
+        to_port     = var.prometheus_port
+        type        = "ingress"
+        cidr_blocks = var.observability_allowed_cidrs
+      }
+    } : {},
+    var.enable_nodegroup_ssh_from_bastion && var.nodegroup_ssh_key_name != null ? {
+      bastion_to_nodes_ssh = {
+        description              = "Allow SSH from bastion to worker nodes"
+        protocol                 = "tcp"
+        from_port                = 22
+        to_port                  = 22
+        type                     = "ingress"
+        source_security_group_id = aws_security_group.bastion.id
+      }
+    } : {}
+  )
 
   # EKS Managed Node Group(s)
   eks_managed_node_groups = {

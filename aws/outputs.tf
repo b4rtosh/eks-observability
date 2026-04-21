@@ -22,3 +22,4 @@ output "nodegroup_ssh_from_bastion_enabled" {
   value = var.enable_nodegroup_ssh_from_bastion && var.nodegroup_ssh_key_name != null
 }
 
+
