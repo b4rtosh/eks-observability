@@ -43,14 +43,6 @@ module "eks" {
         type        = "ingress"
         cidr_blocks = var.observability_allowed_cidrs
       }
-      public_prometheus = {
-        description = "Allow Prometheus from allowlisted public CIDRs"
-        protocol    = "tcp"
-        from_port   = var.prometheus_port
-        to_port     = var.prometheus_port
-        type        = "ingress"
-        cidr_blocks = var.observability_allowed_cidrs
-      }
     } : {},
     var.enable_nodegroup_ssh_from_bastion && var.nodegroup_ssh_key_name != null ? {
       bastion_to_nodes_ssh = {

@@ -34,12 +34,7 @@ variable "observability_allowed_cidrs" {
 
 variable "grafana_port" {
   type    = number
-  default = 3000
-}
-
-variable "prometheus_port" {
-  type    = number
-  default = 9090
+  default = 32000
 }
 
 variable "enable_public_node_access" {
