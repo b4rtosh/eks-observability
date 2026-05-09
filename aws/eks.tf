@@ -2,6 +2,7 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 21.0"
 
+  enable_irsa = true
   # disable the eks auto mode
   compute_config = {
     enabled = false
