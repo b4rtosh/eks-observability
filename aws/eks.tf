@@ -20,6 +20,9 @@ module "eks" {
     vpc-cni = {
       before_compute = true
     }
+    aws-ebs-csi-driver = {
+      service_account_role_arn = aws_iam_role.ebs-csi.arn
+    }
   }
 
   enable_cluster_creator_admin_permissions = true

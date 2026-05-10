@@ -16,6 +16,14 @@ data:
                 "type": "prometheus",
                 "url": "http://prometheus-service.monitoring.svc:9090",
                 "version": 1
+            },
+            {
+                "access":"proxy",
+                "editable": true,
+                "name": "tempo",
+                "type": "tempo",
+                "url": "http://tempo.monitoring.svc:3200",
+                "version": 1
             }
         ]
     }
