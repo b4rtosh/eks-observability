@@ -13,8 +13,12 @@ spec:
       labels:
         app: tempo
     spec:
+      securityContext:
+        fsGroup: 10001
       containers:
         - name: tempo
+          securityContext:
+            runAsUser: 10001
           image: grafana/tempo:latest
 
           args:
