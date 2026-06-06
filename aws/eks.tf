@@ -2,6 +2,7 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 21.0"
 
+  enable_irsa = true
   # disable the eks auto mode
   compute_config = {
     enabled = false
@@ -18,6 +19,9 @@ module "eks" {
     kube-proxy = {}
     vpc-cni = {
       before_compute = true
+    }
+    aws-ebs-csi-driver = {
+      service_account_role_arn = aws_iam_role.ebs-csi.arn
     }
   }
 
