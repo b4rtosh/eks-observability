@@ -11,4 +11,4 @@ spec:
     - name: fastapi-http
       port: 8000
       targetPort: 8000
-      nodePort: 33333
+      nodePort: 30800
