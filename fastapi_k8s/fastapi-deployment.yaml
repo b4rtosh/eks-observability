@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: fastapi
-        image: fastapi-app:latest
+        image: docker.io/b4rtosh/eks-observability:latest
         imagePullPolicy: IfNotPresent
         ports:
         - name: api
