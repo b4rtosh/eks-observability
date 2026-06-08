@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi
+  namespace: monitoring
+spec:
+  selector:
+    app: fastapi
+  type: NodePort
+  ports:
+    - name: fastapi-http
+      port: 8000
+      targetPort: 8000
+      nodePort: 33333

@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/b4rtosh/eks-observability.git
-    targetRevision: observability
+    targetRevision: main
     path: alertmanager
   destination:
     server: https://kubernetes.default.svc
