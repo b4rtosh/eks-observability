@@ -17,6 +17,9 @@ spec:
       containers:
       - name: grafana
         image: grafana/grafana:latest
+        env:
+        - name: GF_SERVER_ROOT_URL
+          value: "http://63.180.171.6:32000/"
         ports:
         - name: grafana
           containerPort: 3000
@@ -38,5 +41,5 @@ spec:
           emptyDir: {}
         - name: grafana-datasources
           configMap:
-              defaultMode: 420
-              name: grafana-datasources
+            defaultMode: 420
+            name: grafana-datasources
